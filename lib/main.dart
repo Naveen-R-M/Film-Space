@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
+import 'my_colors.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -15,6 +17,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          selectedItemColor: Color(0xffBB86FC),
+        ),
+      ),
       home: SplashScreen(),
     );
   }
@@ -58,32 +66,37 @@ class _SplashScreenState extends State<SplashScreen> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color(0xff42275a),
-                Color(0xff734b6d),
+                MyColors.APP_PRIMARY,
+                MyColors.APP_SECONDARY,
               ]),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Spacer(),
-              Text(
-                'Film Space',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.dancingScript(
-                  color: Colors.white70,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 2,
-                  fontSize: 40,
+          child: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 30,
                 ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Lottie.asset('assets/cup_loading.json'),
-              Lottie.asset('assets/man_thinking.json'),
-            ],
+                Text(
+                  'Film Space',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.dancingScript(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 2,
+                    fontSize: 40,
+                  ),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Lottie.asset('assets/cup_loading.json'),
+                Spacer(),
+                Lottie.asset('assets/man_thinking.json'),
+              ],
+            ),
           ),
         ),
       ),
