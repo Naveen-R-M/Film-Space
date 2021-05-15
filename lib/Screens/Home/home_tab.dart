@@ -27,7 +27,9 @@ class _HomeTabState extends State<HomeTab> {
               return GestureDetector(
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => VideoView(),
+                    builder: (context) => VideoView(
+                      index: index,
+                    ),
                   ),
                 ),
                 child: Column(
@@ -58,34 +60,39 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 15,
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 15,
-                        ),
-                        CircleAvatar(
-                          backgroundColor: Colors.blue.shade100,
-                          radius: 25,
-                          child: FlutterLogo(
-                            size: 40,
+                    Container(
+                      padding: EdgeInsets.only(
+                        left: 12.0,
+                        right: 12.0,
+                      ),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.blue.shade100,
+                            radius: 25,
+                            child: FlutterLogo(
+                              size: 40,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          UserFiles.title[index],
-                          style: GoogleFonts.ubuntu(
-                            fontSize: 20,
-                            letterSpacing: 0.5,
+                          SizedBox(
+                            width: 20,
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            child: Text(
+                              UserFiles.title[index],
+                              style: GoogleFonts.ubuntu(
+                                fontSize: 20,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
-                      height: 40,
+                      height: 15,
                     ),
                   ],
                 ),
