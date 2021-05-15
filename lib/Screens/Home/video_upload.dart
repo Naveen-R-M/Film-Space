@@ -263,8 +263,8 @@ class _VideoUploadScreenState extends State<VideoUploadScreen>
                         gravity: ToastGravity.BOTTOM,
                       );
                       setState(() {
-                        videoName = '';
-                        thumbnailImageName = '';
+                        videoName = 'Choose your video file';
+                        thumbnailImageName = 'Choose your thumbnail image';
                       });
                       titleController.text = '';
                       descController.text = '';

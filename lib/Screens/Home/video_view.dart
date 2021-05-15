@@ -39,6 +39,17 @@ class _VideoViewState extends State<VideoView> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     final isMuted = _videoPlayerController.value.volume == 0;
+
+    var videoWidth = _videoPlayerController.value.size.width;
+    var videoHeight = _videoPlayerController.value.size.height;
+
+    print(
+      'video Height : ${_videoPlayerController.value.aspectRatio}, '
+      '$videoHeight, '
+      '$videoWidth,'
+      '$height,'
+      '$width,',
+    );
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -53,8 +64,6 @@ class _VideoViewState extends State<VideoView> {
                   GestureDetector(
                     onTap: () => _videoPlayerController.pause(),
                     child: Container(
-                      width: width,
-                      height: 250,
                       child: AspectRatio(
                         aspectRatio: _videoPlayerController.value.aspectRatio,
                         child: VideoPlayer(
@@ -63,21 +72,20 @@ class _VideoViewState extends State<VideoView> {
                       ),
                     ),
                   ),
-                  Center(
-                    child: Container(
-                      height: 250,
-                      width: width,
-                      child: _videoPlayerController.value.isPlaying
-                          ? Container()
-                          : IconButton(
-                              onPressed: () => _videoPlayerController.play(),
-                              icon: Icon(
-                                Icons.play_arrow,
-                                size: 50,
-                                color: Colors.white70,
-                              ),
+                  Container(
+                    alignment: Alignment.center,
+                    width: width,
+                    height: (videoWidth + videoHeight) / 9,
+                    child: _videoPlayerController.value.isPlaying
+                        ? Container()
+                        : IconButton(
+                            onPressed: () => _videoPlayerController.play(),
+                            icon: Icon(
+                              Icons.play_arrow,
+                              size: 50,
+                              color: Colors.white70,
                             ),
-                    ),
+                          ),
                   ),
                   Positioned(
                     bottom: 0,
