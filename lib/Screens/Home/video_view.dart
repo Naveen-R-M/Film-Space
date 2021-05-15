@@ -16,8 +16,8 @@ class _VideoViewState extends State<VideoView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _videoPlayerController = VideoPlayerController.asset(
-      'assets/video.mp4',
+    _videoPlayerController = VideoPlayerController.file(
+      File(UserFiles.selectedVideo[0]),
     )
       ..addListener(
         () {
