@@ -1,6 +1,7 @@
+import 'package:film_space/user_files.dart';
+import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:film_space/my_colors.dart';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:io';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -20,6 +21,12 @@ class _VideoUploadScreenState extends State<VideoUploadScreen>
   String videoName = 'Choose your video file';
   String thumbnailImageName = 'Choose your thumbnail image';
 
+  String videoPath;
+  String imagePath;
+
+  final titleController = TextEditingController();
+  final descController = TextEditingController();
+
   _openFiles(String storeVariable) async {
     if (storeVariable == 'video') {
       FilePickerResult _result = await FilePicker.platform.pickFiles(
@@ -31,6 +38,7 @@ class _VideoUploadScreenState extends State<VideoUploadScreen>
         print('$storeVariable file name : $fileName');
         setState(() {
           videoName = fileName;
+          videoPath = _result.files.first.path;
         });
       }
     } else {
@@ -43,6 +51,7 @@ class _VideoUploadScreenState extends State<VideoUploadScreen>
         print('$storeVariable file name : $fileName');
         setState(() {
           thumbnailImageName = fileName;
+          imagePath = _result.files.first.path;
         });
       }
     }
@@ -54,7 +63,7 @@ class _VideoUploadScreenState extends State<VideoUploadScreen>
     keyBoardType,
     icon,
     bottomPadding,
-    storeVariable,
+    controller,
     enabled,
   ) {
     return Container(
@@ -64,7 +73,7 @@ class _VideoUploadScreenState extends State<VideoUploadScreen>
         bottom: bottomPadding == true ? 16.0 : 0.0,
       ),
       child: TextFormField(
-        onChanged: (val) => storeVariable = val,
+        controller: controller,
         maxLines: null,
         keyboardType: keyBoardType,
         readOnly: enabled,
@@ -142,7 +151,7 @@ class _VideoUploadScreenState extends State<VideoUploadScreen>
                 TextInputType.text,
                 Icons.title,
                 true,
-                title,
+                titleController,
                 false,
               ),
               videoTextField(
@@ -151,7 +160,7 @@ class _VideoUploadScreenState extends State<VideoUploadScreen>
                 TextInputType.multiline,
                 Icons.description,
                 true,
-                description,
+                descController,
                 false,
               ),
               Row(
@@ -235,11 +244,30 @@ class _VideoUploadScreenState extends State<VideoUploadScreen>
                   focusColor: MyColors.APP_PRIMARY,
                   splashColor: MyColors.APP_PRIMARY,
                   onPressed: () {
-                    if (title != null &&
-                        description != null &&
-                        videoName != null &&
-                        thumbnailImageName != null) {
+                    print('image $videoPath');
+                    if (titleController.text != null &&
+                        descController.text != null &&
+                        videoPath != null &&
+                        imagePath != null) {
                       print('Accepted');
+
+                      UserFiles.title.add(titleController.text.toString());
+                      UserFiles.description.add(descController.text);
+                      UserFiles.selectedVideo.add(videoPath);
+                      UserFiles.selectedImage.add(imagePath);
+
+                      print('UserFiles \n\n ${UserFiles.title[0]}');
+                      Fluttertoast.showToast(
+                        msg: 'Video uploaded successfully..',
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM,
+                      );
+                      setState(() {
+                        videoName = '';
+                        thumbnailImageName = '';
+                      });
+                      titleController.text = '';
+                      descController.text = '';
                     } else {
                       Fluttertoast.showToast(
                         msg: 'Enter all the details before you proceed further',

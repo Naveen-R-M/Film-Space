@@ -2,6 +2,7 @@ import 'package:film_space/Screens/Home/home_tab.dart';
 import 'package:film_space/Screens/Home/video_upload.dart';
 import 'package:film_space/my_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     _pageController.animateToPage(
       _selectedIndex,
-      duration: Duration(milliseconds: 250),
+      duration: Duration(milliseconds: 150),
       curve: Curves.fastOutSlowIn,
     );
   }
@@ -33,6 +34,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Film Space',
+          style: GoogleFonts.dancingScript(
+            fontSize: 22,
+            color: Colors.white70,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 0.75,
+          ),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
