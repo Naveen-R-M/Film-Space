@@ -29,6 +29,7 @@ dependencies:
   google_fonts: ^2.0.0
   lottie: ^1.0.1
   video_player: ^2.1.1
+  wakelock: ^0.5.2
 
 dev_dependencies:
   flutter_test:
